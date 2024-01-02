@@ -16,6 +16,7 @@ import java.util.List;
 public class ProductResource {
     @Autowired
     private ProductService service;
+
     @GetMapping
     public ResponseEntity<List<Product>> findAll() {
         List<Product> list = service.findAll();

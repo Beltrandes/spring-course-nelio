@@ -1,5 +1,6 @@
 package com.beltrandes.java_course.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -18,8 +19,9 @@ public class Category {
 
     private String name;
 
-    @Transient
+    @ManyToMany(mappedBy = "categories")
     @Setter(AccessLevel.NONE)
+    @JsonIgnore
     private Set<Product> products = new HashSet<>();
 
     public Category(Long id, String name) {
