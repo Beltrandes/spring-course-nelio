@@ -1,5 +1,6 @@
 package com.beltrandes.java_course.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -26,6 +27,7 @@ public class Payment {
     @Setter
     @OneToOne
     @MapsId
+    @JsonIgnore
     private Order order;
 
     public Payment(Long id, Instant moment, Order order) {

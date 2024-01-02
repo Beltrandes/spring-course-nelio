@@ -56,8 +56,14 @@ public class Order {
         }
     }
 
+    public Double getTotal() {
+        double sum = 0;
 
-
+        for (OrderItem x : items) {
+            sum += x.getSubTotal();
+        }
+        return sum;
+    }
     public Order(Long id, Instant moment, OrderStatus orderStatus, User client) {
         this.id = id;
         this.moment = moment;
