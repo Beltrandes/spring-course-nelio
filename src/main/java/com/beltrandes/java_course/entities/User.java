@@ -1,12 +1,21 @@
 package com.beltrandes.java_course.entities;
 
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 @Data
+@Entity
 @EqualsAndHashCode(of = "id")
+@AllArgsConstructor
+@NoArgsConstructor
+@Table(name = "tb_user")
 public class User {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
     private String email;
@@ -14,14 +23,5 @@ public class User {
     private String password;
 
 
-    public User() {
 
-    }
-    public User(Long id, String name, String email, String phone, String password) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.phone = phone;
-        this.password = password;
-    }
 }
