@@ -1,8 +1,10 @@
 package com.beltrandes.java_course.config;
 
+import com.beltrandes.java_course.entities.Category;
 import com.beltrandes.java_course.entities.Order;
 import com.beltrandes.java_course.entities.User;
 import com.beltrandes.java_course.entities.enums.OrderStatus;
+import com.beltrandes.java_course.repositories.CategoryRepository;
 import com.beltrandes.java_course.repositories.OrderRepository;
 import com.beltrandes.java_course.repositories.UserRepository;
 import io.micrometer.observation.ObservationRegistry;
@@ -22,9 +24,17 @@ public class TestConfig implements CommandLineRunner {
     @Autowired
     private OrderRepository orderRepository;
 
+    @Autowired
+    private CategoryRepository categoryRepository;
+
 
     @Override
     public void run(String... args) throws Exception {
+        Category cat1 = new Category(null, "Electronics");
+        Category cat2 = new Category(null, "Books");
+        Category cat3 = new Category(null, "Computers");
+
+        categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
 
         var u1 = new User(null, "Maria Brown", "maria@gmail.com", "11999999999", "12345");
         var u2 = new User(null, "Alex Green", "alex@gmail.com", "11988888888", "54321");
