@@ -9,7 +9,6 @@ import jakarta.persistence.ManyToOne;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-@Data
 @EqualsAndHashCode
 @Embeddable
 public class OrderItemPK {
@@ -21,4 +20,17 @@ public class OrderItemPK {
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;
+
+    public Order getOrder() {
+        return order;
+    }
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+    public Product getProduct() {
+        return product;
+    }
+    public void setProduct(Product product) {
+        this.product = product;
+    }
 }
