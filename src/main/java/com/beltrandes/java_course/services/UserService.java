@@ -2,8 +2,10 @@ package com.beltrandes.java_course.services;
 
 import com.beltrandes.java_course.entities.User;
 import com.beltrandes.java_course.repositories.UserRepository;
+import com.beltrandes.java_course.services.exceptions.DatabaseException;
 import com.beltrandes.java_course.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,17 +21,26 @@ public class UserService {
     }
 
     public User findById(Long id) {
-        Optional<User> obj =  repository.findById(id);
+        Optional<User> obj = repository.findById(id);
 
         return obj.orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
     public User insert(User obj) {
-       return repository.save(obj);
+        return repository.save(obj);
     }
 
     public void delete(Long id) {
-        repository.deleteById(id);
+        try {
+            if (repository.existsById(id)) {
+                repository.deleteById(id);
+            } else {
+                throw new ResourceNotFoundException(id);
+            }
+        } catch (DataIntegrityViolationException e) {
+            throw new DatabaseException(e.getMessage());
+        }
+
     }
 
     public User update(Long id, User obj) {
